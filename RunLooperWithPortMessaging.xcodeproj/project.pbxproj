@@ -12,6 +12,9 @@
 		1547C6A619748DDD0018BCEE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1547C6A519748DDD0018BCEE /* Images.xcassets */; };
 		1547C6A919748DDD0018BCEE /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1547C6A719748DDD0018BCEE /* MainMenu.xib */; };
 		1547C6B519748DDE0018BCEE /* RunLooperWithPortMessagingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1547C6B419748DDE0018BCEE /* RunLooperWithPortMessagingTests.m */; };
+		1547C6C019748ECC0018BCEE /* CQMRunLoopPortSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1547C6BF19748ECC0018BCEE /* CQMRunLoopPortSource.m */; };
+		1547C6C119748ECC0018BCEE /* CQMRunLoopPortSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1547C6BF19748ECC0018BCEE /* CQMRunLoopPortSource.m */; };
+		1547C6C3197491050018BCEE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1547C6C2197491050018BCEE /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +38,9 @@
 		1547C6AE19748DDE0018BCEE /* RunLooperWithPortMessagingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RunLooperWithPortMessagingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1547C6B319748DDE0018BCEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1547C6B419748DDE0018BCEE /* RunLooperWithPortMessagingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunLooperWithPortMessagingTests.m; sourceTree = "<group>"; };
+		1547C6BE19748ECC0018BCEE /* CQMRunLoopPortSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CQMRunLoopPortSource.h; sourceTree = "<group>"; };
+		1547C6BF19748ECC0018BCEE /* CQMRunLoopPortSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CQMRunLoopPortSource.m; sourceTree = "<group>"; };
+		1547C6C2197491050018BCEE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1547C6C3197491050018BCEE /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +65,7 @@
 		1547C69219748DDD0018BCEE = {
 			isa = PBXGroup;
 			children = (
+				1547C6C2197491050018BCEE /* Foundation.framework */,
 				1547C69D19748DDD0018BCEE /* RunLooperWithPortMessaging */,
 				1547C6B119748DDE0018BCEE /* RunLooperWithPortMessagingTests */,
 				1547C69C19748DDD0018BCEE /* Products */,
@@ -76,6 +84,8 @@
 		1547C69D19748DDD0018BCEE /* RunLooperWithPortMessaging */ = {
 			isa = PBXGroup;
 			children = (
+				1547C6BE19748ECC0018BCEE /* CQMRunLoopPortSource.h */,
+				1547C6BF19748ECC0018BCEE /* CQMRunLoopPortSource.m */,
 				1547C6A219748DDD0018BCEE /* AppDelegate.h */,
 				1547C6A319748DDD0018BCEE /* AppDelegate.m */,
 				1547C6A519748DDD0018BCEE /* Images.xcassets */,
@@ -212,6 +222,7 @@
 			files = (
 				1547C6A419748DDD0018BCEE /* AppDelegate.m in Sources */,
 				1547C6A119748DDD0018BCEE /* main.m in Sources */,
+				1547C6C019748ECC0018BCEE /* CQMRunLoopPortSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,6 +231,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1547C6B519748DDE0018BCEE /* RunLooperWithPortMessagingTests.m in Sources */,
+				1547C6C119748ECC0018BCEE /* CQMRunLoopPortSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
