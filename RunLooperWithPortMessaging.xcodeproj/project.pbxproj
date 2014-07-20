@@ -15,6 +15,8 @@
 		1547C6C019748ECC0018BCEE /* CQMRunLoopPortSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1547C6BF19748ECC0018BCEE /* CQMRunLoopPortSource.m */; };
 		1547C6C119748ECC0018BCEE /* CQMRunLoopPortSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1547C6BF19748ECC0018BCEE /* CQMRunLoopPortSource.m */; };
 		1547C6C3197491050018BCEE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1547C6C2197491050018BCEE /* Foundation.framework */; };
+		15B0D558197C6A4200B37D29 /* NSThreadAndNSPort.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B0D557197C6A4200B37D29 /* NSThreadAndNSPort.m */; };
+		15B0D559197C6A4200B37D29 /* NSThreadAndNSPort.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B0D557197C6A4200B37D29 /* NSThreadAndNSPort.m */; };
 		15BE11B7197734F900A6DFA9 /* CQMCFRunLoop.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BE11B6197734F900A6DFA9 /* CQMCFRunLoop.m */; };
 		15BE11B8197734F900A6DFA9 /* CQMCFRunLoop.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BE11B6197734F900A6DFA9 /* CQMCFRunLoop.m */; };
 		15C71B7C197BFBD300529E1C /* Temporary.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C71B7A197BFBD300529E1C /* Temporary.m */; };
@@ -49,6 +51,8 @@
 		1547C6BE19748ECC0018BCEE /* CQMRunLoopPortSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CQMRunLoopPortSource.h; sourceTree = "<group>"; };
 		1547C6BF19748ECC0018BCEE /* CQMRunLoopPortSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CQMRunLoopPortSource.m; sourceTree = "<group>"; };
 		1547C6C2197491050018BCEE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		15B0D556197C6A4200B37D29 /* NSThreadAndNSPort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSThreadAndNSPort.h; sourceTree = "<group>"; };
+		15B0D557197C6A4200B37D29 /* NSThreadAndNSPort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSThreadAndNSPort.m; sourceTree = "<group>"; };
 		15BE11B5197734F900A6DFA9 /* CQMCFRunLoop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CQMCFRunLoop.h; sourceTree = "<group>"; };
 		15BE11B6197734F900A6DFA9 /* CQMCFRunLoop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CQMCFRunLoop.m; sourceTree = "<group>"; };
 		15C71B79197BFBD300529E1C /* Temporary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Temporary.h; sourceTree = "<group>"; };
@@ -99,6 +103,9 @@
 		1547C69D19748DDD0018BCEE /* RunLooperWithPortMessaging */ = {
 			isa = PBXGroup;
 			children = (
+				15B0D555197C69E700B37D29 /* NSThreadAndNSPorts  */,
+				15B0D554197C69CC00B37D29 /* PosixThreadandCFPorts */,
+				15B0D551197C5F5F00B37D29 /* ThreadSyncronizations */,
 				15C71B78197BFB0D00529E1C /* CFMessagePort_And_CFRunLoop */,
 				15C71B77197BFAF500529E1C /* NSPort_And_RunLoop  */,
 				1547C6A219748DDD0018BCEE /* AppDelegate.h */,
@@ -109,8 +116,6 @@
 				15C71B7A197BFBD300529E1C /* Temporary.m */,
 				15C71B7B197BFBD300529E1C /* Temporary.xib */,
 				1547C69E19748DDD0018BCEE /* Supporting Files */,
-				15C71B80197BFDF500529E1C /* PosixThreadandCFPorts.h */,
-				15C71B81197BFDF500529E1C /* PosixThreadandCFPorts.m */,
 			);
 			path = RunLooperWithPortMessaging;
 			sourceTree = "<group>";
@@ -139,6 +144,47 @@
 				1547C6B319748DDE0018BCEE /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		15B0D551197C5F5F00B37D29 /* ThreadSyncronizations */ = {
+			isa = PBXGroup;
+			children = (
+				15B0D553197C602500B37D29 /* pthread */,
+				15B0D552197C601A00B37D29 /* NSThread */,
+			);
+			name = ThreadSyncronizations;
+			sourceTree = "<group>";
+		};
+		15B0D552197C601A00B37D29 /* NSThread */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = NSThread;
+			sourceTree = "<group>";
+		};
+		15B0D553197C602500B37D29 /* pthread */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = pthread;
+			sourceTree = "<group>";
+		};
+		15B0D554197C69CC00B37D29 /* PosixThreadandCFPorts */ = {
+			isa = PBXGroup;
+			children = (
+				15C71B80197BFDF500529E1C /* PosixThreadandCFPorts.h */,
+				15C71B81197BFDF500529E1C /* PosixThreadandCFPorts.m */,
+			);
+			name = PosixThreadandCFPorts;
+			sourceTree = "<group>";
+		};
+		15B0D555197C69E700B37D29 /* NSThreadAndNSPorts  */ = {
+			isa = PBXGroup;
+			children = (
+				15B0D556197C6A4200B37D29 /* NSThreadAndNSPort.h */,
+				15B0D557197C6A4200B37D29 /* NSThreadAndNSPort.m */,
+			);
+			name = "NSThreadAndNSPorts ";
 			sourceTree = "<group>";
 		};
 		15C71B77197BFAF500529E1C /* NSPort_And_RunLoop  */ = {
@@ -262,6 +308,7 @@
 			files = (
 				1547C6A419748DDD0018BCEE /* AppDelegate.m in Sources */,
 				15C71B7C197BFBD300529E1C /* Temporary.m in Sources */,
+				15B0D558197C6A4200B37D29 /* NSThreadAndNSPort.m in Sources */,
 				1547C6A119748DDD0018BCEE /* main.m in Sources */,
 				15C71B82197BFDF500529E1C /* PosixThreadandCFPorts.m in Sources */,
 				15BE11B7197734F900A6DFA9 /* CQMCFRunLoop.m in Sources */,
@@ -277,6 +324,7 @@
 				1547C6B519748DDE0018BCEE /* RunLooperWithPortMessagingTests.m in Sources */,
 				15C71B7D197BFBD300529E1C /* Temporary.m in Sources */,
 				1547C6C119748ECC0018BCEE /* CQMRunLoopPortSource.m in Sources */,
+				15B0D559197C6A4200B37D29 /* NSThreadAndNSPort.m in Sources */,
 				15BE11B8197734F900A6DFA9 /* CQMCFRunLoop.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
