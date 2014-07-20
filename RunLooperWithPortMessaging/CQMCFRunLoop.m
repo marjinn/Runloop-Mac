@@ -27,6 +27,7 @@
 {
     MySpawnThread();
     return;
+    
 }
 
 /*
@@ -210,6 +211,8 @@ OSStatus MySpawnThread(void)
             int thread_attr_destroy_rval = INT_MAX;
             if (thread_create_rval == 0)
             {
+                pthread_setname_np("com.app.secondary_thread");
+                
                 /* int pthread_attr_destroy(pthread_attr_t *); */
                 thread_attr_destroy_rval =
                 pthread_attr_destroy((pthread_attr_t *)&attr);
