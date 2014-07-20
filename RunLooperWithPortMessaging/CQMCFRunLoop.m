@@ -9,25 +9,87 @@
 #import "CQMCFRunLoop.h"
 @import CoreFoundation;
 
+CFMutableDictionaryRef listOfActivePortsWithThreads;
+
 #include <pthread.h>
+@interface CQMCFRunLoop()
+{
+    //CFMutableDictionaryRef listOfActivePortsWithThraeds;
+}
+@property CFMutableDictionaryRef listOfActivePortsWithThreads;
+@end
 
 @implementation CQMCFRunLoop
 
 - (instancetype)init
 {
     self = [super init];
-    if (self) {
-        
+    if (self)
+    {
+      
     }
     return self;
 }
 
+-(void)AddPortToListOfActiveThreads:(NSMessagePort* )messagePort
+{
+    CFMutableDictionaryRef theDict = NULL;
+    theDict = ([self listOfActivePortsWithThreads]);
+    
+    listOfActivePortsWithThreads = [self listOfActivePortsWithThreads];
+    
+    void* key = NULL;
+    key = "messagePortForWorkerThread";
+    
+    void* value = NULL;
+    value = (void*)&messagePort;
+    
+    CFDictionaryAddValue
+    (theDict,
+     key,
+     value
+     );
+}
+const pthread_key_t tls = 0;
 
 -(void)callMySpawnThread
 {
+    [self setListOfActivePortsWithThreads:NULL];
+    
+    CFMutableDictionaryRef listOfActivePortsWithThreads_ =
+    CFDictionaryCreateMutable
+    (NULL,
+     0,
+     (const CFDictionaryKeyCallBacks *)&kCFCopyStringDictionaryKeyCallBacks,
+     (const CFDictionaryValueCallBacks *)&kCFTypeDictionaryValueCallBacks
+     );
+    
+    [self setListOfActivePortsWithThreads:listOfActivePortsWithThreads_];
+    
+    listOfActivePortsWithThreads_ = NULL;
+
+    int pthread_key_create_rval = INT_MAX;
+    pthread_key_create_rval =
+    pthread_key_create((pthread_key_t *)&tls, (void (*)(void *))&destrory);
+    
+    if (pthread_key_create_rval == 0)
+    {
+        pthread_setspecific(tls, (const void *)listOfActivePortsWithThreads_);
+    }
+    
     MySpawnThread();
     return;
     
+}
+
+void destrory(void* keyValue)
+{
+    if (keyValue)
+    {
+        free(keyValue);
+        
+        pthread_setspecific(tls, NULL);
+    }
 }
 
 /*
@@ -66,9 +128,6 @@
 OSStatus MySpawnThread(void)
 {
     OSStatus returnStatus           = 0;
-    
-    
-    
     
     //runLoopSource
     CFRunLoopSourceRef rlSource    = NULL;
@@ -284,6 +343,11 @@ CFDataRef CFMessagePortCallBack_MainThread(
              // it here.
              CFRelease(messagePort);
              */
+            
+            CFDictionaryAddValue(listOfActivePortsWithThreads, (const void *)"messagePort", (const void *)messagePort);
+            
+            CFRelease(messagePort);
+            
         }
         
         //Clean Up
