@@ -9,10 +9,12 @@
 #import <Cocoa/Cocoa.h>
 
 #import "CQMRunLoopPortSource.h"
+#import "CQMCFRunLoop.h"
 
 int main(int argc, const char * argv[])
 {
     
+    /*
     CQMRunLoopPortSource* cqm = nil;
     cqm = [CQMRunLoopPortSource new];
     
@@ -22,5 +24,13 @@ int main(int argc, const char * argv[])
     
     
     //[[NSRunLoop currentRunLoop] run];
+    */
+    
+    CQMCFRunLoop* cfRunLoopDmeo = nil;
+    cfRunLoopDmeo = [CQMCFRunLoop new];
+    
+    [cfRunLoopDmeo callMySpawnThread];
+    
+     //[[NSRunLoop currentRunLoop] run];
     return NSApplicationMain(argc, argv);
 }

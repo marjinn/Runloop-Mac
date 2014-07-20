@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface CQMCFRunLoop : NSObject
-
+-(void)callMySpawnThread;
 @end
