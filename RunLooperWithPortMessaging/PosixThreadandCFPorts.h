@@ -10,4 +10,8 @@
 
 @interface PosixThreadandCFPorts : NSObject
 
+
+pthread_t* LaunchAPosixThread(void* threadName);
+
+
 @end

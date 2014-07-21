@@ -10,6 +10,7 @@
 
 #import "CQMRunLoopPortSource.h"
 #import "CQMCFRunLoop.h"
+#import "PosixThreadandCFPorts.h"
 
 int main(int argc, const char * argv[])
 {
@@ -25,6 +26,11 @@ int main(int argc, const char * argv[])
     
     //[[NSRunLoop currentRunLoop] run];
     */
+    pthread_t* thread =
+    (LaunchAPosixThread(NULL));
+    
+    //after use free
+    free((void *)thread);
     
     CQMCFRunLoop* cfRunLoopDmeo = nil;
     cfRunLoopDmeo = [CQMCFRunLoop new];

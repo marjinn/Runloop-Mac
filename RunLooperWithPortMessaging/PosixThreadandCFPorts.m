@@ -20,7 +20,9 @@
 pthread_t* LaunchAPosixThread(void* threadName)
 {
 
+    /* called has to free memory*/
     pthread_t* threadID = NULL;
+    threadID = malloc(sizeof(pthread_t));
 
     //-- init attributes dict
     /* 0 - Success */
@@ -43,12 +45,15 @@ pthread_t* LaunchAPosixThread(void* threadName)
         if (thread_detach_state_rval == 0)
         {
             //-- thread create
+            const char* portName= NULL;
+            portName = "myPortName";
+            
             thread_create_rval =
             pthread_create(
                            (pthread_t *)&posix_thread_ID,
                            (const pthread_attr_t *)&attr,
-                           (void *(*)(void *))&PosixThreadMainRoutine,
-                           (void*)"myPortName");
+                           (void *(*)(void *))&PosixThreadMain_Routine,
+                           (void*)portName);
             
             int thread_attr_destroy_rval = INT_MAX;
             if (thread_create_rval == 0)
@@ -65,8 +70,11 @@ pthread_t* LaunchAPosixThread(void* threadName)
                 }
                 
                 pthread_setname_np(name);
-                
-                threadID = (pthread_t *)&posix_thread_ID;
+                //As local variables are stack base and the mmeory will
+                //cease to exist once the function exits
+                //threadID = (pthread_t *)&posix_thread_ID;
+                threadID =
+                memcpy((void *)threadID, (const void *)&posix_thread_ID, sizeof(pthread_t));
                 
                 //-- thread destroy attributes dict
                 thread_attr_destroy_rval =
@@ -90,8 +98,9 @@ pthread_t* LaunchAPosixThread(void* threadName)
     return threadID;
 }
 
-void PosixThreadMainRoutine(void* data)
+void PosixThreadMain_Routine(void* data)
 {
+    printf("\n%s\n",(const char*)data);
     return ;
 }
 @end

@@ -68,14 +68,14 @@ const pthread_key_t tls = 0;
     
     listOfActivePortsWithThreads_ = NULL;
 
-    int pthread_key_create_rval = INT_MAX;
-    pthread_key_create_rval =
-    pthread_key_create((pthread_key_t *)&tls, (void (*)(void *))&destrory);
-    
-    if (pthread_key_create_rval == 0)
-    {
-        pthread_setspecific(tls, (const void *)listOfActivePortsWithThreads_);
-    }
+//    int pthread_key_create_rval = INT_MAX;
+//    pthread_key_create_rval =
+//    pthread_key_create((pthread_key_t *)&tls, (void (*)(void *))&destrory);
+//    
+//    if (pthread_key_create_rval == 0)
+//    {
+//        pthread_setspecific(tls, (const void *)listOfActivePortsWithThreads_);
+//    }
     
     MySpawnThread();
     return;
@@ -344,9 +344,9 @@ CFDataRef CFMessagePortCallBack_MainThread(
              CFRelease(messagePort);
              */
             
-            CFDictionaryAddValue(listOfActivePortsWithThreads, (const void *)"messagePort", (const void *)messagePort);
-            
-            CFRelease(messagePort);
+//            CFDictionaryAddValue(listOfActivePortsWithThreads, (const void *)"messagePort", (const void *)messagePort);
+//            
+//            CFRelease(messagePort);
             
         }
         

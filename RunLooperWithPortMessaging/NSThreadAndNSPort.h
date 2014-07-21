@@ -11,3 +11,12 @@
 @interface NSThreadAndNSPort : NSObject
 
 @end
+
+
+#pragma mark -
+#pragma mark SEcondary thread
+#pragma mark -
+
+@interface WorkerThread : NSObject
++(void)LaunchNewThread:(NSString*)portName;
+@end
