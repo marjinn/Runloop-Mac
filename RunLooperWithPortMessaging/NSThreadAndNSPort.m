@@ -146,12 +146,12 @@
 //                                                          forKey:@"ThreadShouldExitNow"];
     
     
-    unsigned int message = [portMessage msgid];
+    unsigned int mes__sage = [message msgid];
     NSPort* distantPort = nil;
-    if (message == kCheckinMessage)
+    if (mes__sage == kCheckinMessage)
     {
         // Get the worker thread’s communications port.
-        distantPort = [portMessage sendPort];
+        distantPort = [message sendPort];
         // Retain and save the worker port for later use.
         //[self storeDistantPort:distantPort];
     }
@@ -202,7 +202,7 @@
         WorkerThread* myWorkerClass = nil;
         myWorkerClass = [WorkerThread new];
         
-        [myWorkerClass sendCheckinMessage:remotePortSecondary];
+        [myWorkerClass sendCheckinMessage:portName];
         remotePortSecondary = nil;
         
         //-- Start the Run LOOP
@@ -234,14 +234,14 @@
 -(void)sendCheckinMessage:(NSString*)outPortName
 {
     NSMessagePort* outPort = nil;
-    outPort =
+    outPort = (NSMessagePort*)
     [[NSMessagePortNameServer sharedInstance] portForName:outPortName];
     
     [self setValue:(id)outPort forKey:@"remotePortName"];
     
     //Create the worker thraeds local port
     NSMessagePort* workerThreadLocalPort = nil;
-    workerThreadLocalPort =
+    workerThreadLocalPort = (NSMessagePort*)
     [NSMessagePort port];
     
     [[NSMessagePortNameServer sharedInstance] registerPort:(NSPort *)workerThreadLocalPort

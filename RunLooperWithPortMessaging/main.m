@@ -43,7 +43,7 @@ int main(int argc, const char * argv[])
     
     
     
-    [NSThreadAndNSPort new] startTheThread:@"co.axis.of.evil" WithSelector:nil];
+    [[NSThreadAndNSPort new] startTheThread:@"co.axis.of.evil" WithSelector:nil];
     
     
     
