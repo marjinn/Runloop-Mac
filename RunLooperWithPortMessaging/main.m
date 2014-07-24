@@ -12,6 +12,8 @@
 #import "CQMCFRunLoop.h"
 #import "PosixThreadandCFPorts.h"
 
+#import "NSThreadAndNSPort.h"
+
 int main(int argc, const char * argv[])
 {
     
@@ -36,6 +38,14 @@ int main(int argc, const char * argv[])
     cfRunLoopDmeo = [CQMCFRunLoop new];
     
     [cfRunLoopDmeo callMySpawnThread];
+    
+    
+    
+    
+    
+    [NSThreadAndNSPort new] startTheThread:@"co.axis.of.evil" WithSelector:nil];
+    
+    
     
      //[[NSRunLoop currentRunLoop] run];
     return NSApplicationMain(argc, argv);

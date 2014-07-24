@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface NSThreadAndNSPort : NSObject
-
+-(void)startTheThread:(NSString*)threadName
+         WithSelector:(SEL)threadEntryPoint;
 @end
 
 

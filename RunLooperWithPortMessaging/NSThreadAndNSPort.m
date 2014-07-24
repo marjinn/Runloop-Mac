@@ -7,6 +7,7 @@
 //
 
 #import "NSThreadAndNSPort.h"
+#define kCheckinMessage 100
 @interface NSThreadAndNSPort()<NSPortDelegate>
 {
     
@@ -143,6 +144,21 @@
 //    [[[self threadLaunchedByThisClass]threadDictionary]
 //     setValue:(id)[NSNumber numberWithBool:YES]
 //                                                          forKey:@"ThreadShouldExitNow"];
+    
+    
+    unsigned int message = [portMessage msgid];
+    NSPort* distantPort = nil;
+    if (message == kCheckinMessage)
+    {
+        // Get the worker thread’s communications port.
+        distantPort = [portMessage sendPort];
+        // Retain and save the worker port for later use.
+        //[self storeDistantPort:distantPort];
+    }
+    else {
+        // Handle other messages.
+    }
+    
     return;
 }
 
@@ -164,6 +180,7 @@
 //-When Work is doen this iVar shoudl be set to YES
 //- This will exit The runLOOP and hence the thread
 @property BOOL shouldExit;
+@property NSString* remotePortName;
 @end
 
 @implementation WorkerThread
@@ -214,8 +231,41 @@
     return;
 }
 
--(void)sendCheckinMessage:(NSMessagePort*)outPort
+-(void)sendCheckinMessage:(NSString*)outPortName
 {
+    NSMessagePort* outPort = nil;
+    outPort =
+    [[NSMessagePortNameServer sharedInstance] portForName:outPortName];
+    
+    [self setValue:(id)outPort forKey:@"remotePortName"];
+    
+    //Create the worker thraeds local port
+    NSMessagePort* workerThreadLocalPort = nil;
+    workerThreadLocalPort =
+    [NSMessagePort port];
+    
+    [[NSMessagePortNameServer sharedInstance] registerPort:(NSPort *)workerThreadLocalPort
+                                                      name:(NSString *)@"workerThreadLocalPort"];
+    
+    [workerThreadLocalPort setDelegate:(id<NSPortDelegate>)self];
+    
+    [[NSRunLoop currentRunLoop] addPort:workerThreadLocalPort
+                                forMode:NSDefaultRunLoopMode];
+    
+    
+    //Create the check-in message
+    NSPortMessage* messageObj = nil;
+    messageObj =
+    [[NSPortMessage alloc]initWithSendPort:(NSPort *)outPort receivePort:(NSPort *)workerThreadLocalPort components:nil];
+    
+    if(messageObj)
+    {
+        //finish configuring the message and send it immediately
+        [messageObj setMsgid:(uint32_t)kCheckinMessage];
+        
+        [messageObj sendBeforeDate:[NSDate date]];
+    }
+    
     return;
 }
 
