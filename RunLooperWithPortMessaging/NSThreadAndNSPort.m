@@ -65,7 +65,7 @@
         
         NSRunLoop* thisThreadsRunLoop = nil;
         thisThreadsRunLoop = [NSRunLoop currentRunLoop];
-        thisThreadsRunLoop = nil;
+        //thisThreadsRunLoop = nil;
         
         [self setThisThreadsRunLoop:thisThreadsRunLoop];
         
@@ -83,23 +83,30 @@
         
         //--retain local port
         [self setThisThreadsLocalPort:(NSPort *)threadLocalPort];
-        threadLocalPort = nil;
+        //threadLocalPort = nil;
         
         //--Input Source handler function will be the NSPortDelegate function
         [[self thisThreadsLocalPort] setDelegate:(id<NSPortDelegate>)self];
         
-        //--add input source to runLoop
-        [[self thisThreadsRunLoop] addPort:(NSPort *)threadLocalPort
-                 forMode:NSDefaultRunLoopMode];
-        
+      
         //--name local port
         NSString* localPortName = nil;
         localPortName = @"thisThreadsLocalPort";
+        
+        
         
         //register the NSMessagePort (local port) with the NSMessagePortNameServer
         [[NSMessagePortNameServer sharedInstance] registerPort:
          [self thisThreadsLocalPort]
                                                           name:localPortName];
+        
+        
+        //--add input source to runLoop
+        [[self thisThreadsRunLoop] addPort:(NSPort *)threadLocalPort
+                                   forMode:NSDefaultRunLoopMode];
+        
+        
+        
         
 //        while (moreWorkToDo && !exitNow)
 //        {
@@ -126,7 +133,8 @@
                                  toTarget:(id)[WorkerThread class]
                                withObject:localPortName];
         
-        
+        //-- NEED To Update logic to properly control the runloop
+        [[NSRunLoop currentRunLoop] run];
         
         NS_HANDLER
         @throw localException;
@@ -244,6 +252,7 @@
     workerThreadLocalPort = (NSMessagePort*)
     [NSMessagePort port];
     
+
     [[NSMessagePortNameServer sharedInstance] registerPort:(NSPort *)workerThreadLocalPort
                                                       name:(NSString *)@"workerThreadLocalPort"];
     

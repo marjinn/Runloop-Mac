@@ -6,6 +6,10 @@
 //  Copyright (c) 2014 mar Jinn. All rights reserved.
 //
 
+/*
+ NSThread,NSRunLoop,NSMessagePort Working Example
+ */
+
 #import <Foundation/Foundation.h>
 
 @interface NSThreadAndNSPort : NSObject

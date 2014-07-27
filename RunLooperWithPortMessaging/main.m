@@ -28,6 +28,11 @@ int main(int argc, const char * argv[])
     
     //[[NSRunLoop currentRunLoop] run];
     */
+    
+    
+    
+    
+    /*
     pthread_t* thread =
     (LaunchAPosixThread(NULL));
     
@@ -39,7 +44,7 @@ int main(int argc, const char * argv[])
     
     [cfRunLoopDmeo callMySpawnThread];
     
-    
+    */
     
     
     
@@ -47,6 +52,6 @@ int main(int argc, const char * argv[])
     
     
     
-     //[[NSRunLoop currentRunLoop] run];
+     [[NSRunLoop currentRunLoop] run];
     return NSApplicationMain(argc, argv);
 }
