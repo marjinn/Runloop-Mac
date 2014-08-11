@@ -14,6 +14,8 @@
 
 #import "NSThreadAndNSPort.h"
 
+#import "ThreadSynchorniZations.h"
+
 int main(int argc, const char * argv[])
 {
     
@@ -47,9 +49,11 @@ int main(int argc, const char * argv[])
     */
     
     
-    
+    /*
     [[NSThreadAndNSPort new] startTheThread:@"co.axis.of.evil" WithSelector:nil];
+    */
     
+    demoSYNC();
     
     
      [[NSRunLoop currentRunLoop] run];

@@ -22,7 +22,8 @@ pthread_t* LaunchAPosixThread(void* threadName)
 
     /* called has to free memory*/
     pthread_t* threadID = NULL;
-    threadID = malloc(sizeof(pthread_t));
+    threadID = (pthread_t*)malloc(sizeof(pthread_t));
+    threadID = (pthread_t*)memset((void *)threadID, 0, sizeof(pthread_t));
 
     //-- init attributes dict
     /* 0 - Success */

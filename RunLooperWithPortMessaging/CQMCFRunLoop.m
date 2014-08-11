@@ -407,8 +407,8 @@ void PosixThreadMainRoutine(void* data)
     messagePortContext.release          = NULL;
     messagePortContext.copyDescription  = NULL;
     
-    Boolean shouldFreeInfo  = false;
-    Boolean shouldAbort     = true;
+    __unused Boolean shouldFreeInfo  = false;
+    __unused Boolean shouldAbort     = true;
     
     CFMessagePortRef myLocalPort = NULL;
     myLocalPort =
@@ -448,7 +448,7 @@ void PosixThreadMainRoutine(void* data)
     CFRelease(rlSource);
     
     //Package up the port name and send the check-in message
-    CFDataRef returnData = NULL;
+    __unused CFDataRef returnData = NULL;
     CFDataRef outData = NULL;
     
     CFIndex stringLength = INT_MAX;

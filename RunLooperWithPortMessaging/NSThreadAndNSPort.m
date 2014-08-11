@@ -60,7 +60,7 @@
     {
         NS_DURING
         /* Start Thread Specific Code */
-        BOOL moreWorkToDo = YES;
+        __unused BOOL moreWorkToDo = YES;
         BOOL exitNow = NO;
         
         NSRunLoop* thisThreadsRunLoop = nil;
