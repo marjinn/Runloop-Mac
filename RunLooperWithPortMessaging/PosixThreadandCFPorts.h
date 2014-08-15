@@ -11,7 +11,10 @@
 @interface PosixThreadandCFPorts : NSObject
 
 
-pthread_t* LaunchAPosixThread(void* threadName);
+pthread_t* LaunchAPosixThread(void* threadName,
+                              void*(*PosixThreadMain_Routine)(void *)
+                              
+                              );
 
 
 @end

@@ -9,6 +9,7 @@
 #import "ThreadSynchorniZations.h"
 #include <libkern/OSAtomic.h>
 #include <pthread/pthread.h>
+#import "PosixThreadandCFPorts.h"
 
 /**
     Synchronization Tools Available
@@ -286,5 +287,233 @@ void demoSYNC (void)
      );
 }
 
+
+NSCondition* cocoaCondition = nil;
+NSCondition* dispatchCondition(void)
+{
+    static dispatch_once_t onceToken;
+    dispatch_once
+    (
+     &onceToken,
+     ^{
+         cocoaCondition = [NSCondition new];
+         
+         [cocoaCondition setName:@"trial.Condition"];
+
+     });
+    
+    return cocoaCondition;
+}
+
+
+static uint32 timeToDoWork = 1;
+
+void demoCondition(void)
+{
+    dispatch_queue_t newQ = 0;
+    newQ =
+    dispatch_queue_create("com.demoCondition.Q", DISPATCH_QUEUE_CONCURRENT);
+    
+    
+    dispatchCondition();
+   
+  
+    /* Thread that Reads from dictionary */
+    dispatch_async
+    (
+     newQ,
+     ^{
+         
+         [[NSThread currentThread] setName:@"Consumer.Thread"];
+         
+         unsigned int countForSThread = 0;
+         
+         [cocoaCondition lock];
+         
+         while (timeToDoWork <= 0)
+         {
+             [cocoaCondition wait];
+         }
+         
+         timeToDoWork--;
+         
+         /* Work */
+         /*removeData from Q*/
+         countForSThread++;
+         
+         [dataHolderDict removeObjectForKey:
+          [[NSNumber numberWithInt:countForSThread]stringValue]];
+         
+         [[NSRunLoop currentRunLoop] run];
+     }
+     );
+    
+    
+    /* Thread that Adds to dictionary */
+    dispatch_async
+    (
+     newQ,
+     ^{
+         
+         [[NSThread currentThread] setName:@"Producer.Thread"];
+         
+         /* Add Data To Queue aka Wor k*/
+
+         unsigned int countForThread = 0;
+         
+         NSNumber* number = nil;
+         number =  [NSNumber numberWithInt:countForThread++];
+         
+         NSDate* Tdate = nil;
+         Tdate =  [NSDate date];
+         
+         NSString* numbString = nil;
+         numbString = [number stringValue];
+         
+         NSDictionary* tmp = nil;
+         tmp = [NSDictionary dictionaryWithObject:Tdate
+                                           forKey:numbString];
+         
+         dispatchDataDictionary();
+         
+         [dataHolderDict addEntriesFromDictionary:tmp];
+         
+         /* Condition signalling whne data is available */
+         [cocoaCondition lock];
+         
+         timeToDoWork++;
+         
+         [cocoaCondition signal];
+         
+         [cocoaCondition unlock];
+         
+         [[NSRunLoop currentRunLoop] run];
+      }
+     );
+    
+    
+  
+
+   
+
+}
+
+
+pthread_mutex_t             mutex;
+const pthread_mutexattr_t mutexAttr;
+
+pthread_cond_t  condition;
+pthread_condattr_t conditionAttr;
+
+
+Boolean         ready_to_go = true;
+
+void MyConditionInitFunction(void)
+{
+    int pthread_mutex_init_rVal = INT_MAX;
+    pthread_mutex_init_rVal =
+    pthread_mutex_init
+    (
+     (pthread_mutex_t *)&mutex,
+     (pthread_mutexattr_t *)&mutexAttr
+     );
+    
+    int pthread_cond_init_rVal = INT_MAX;
+    pthread_cond_init_rVal =
+    pthread_cond_init
+    (
+     (pthread_cond_t *)&condition ,
+     (pthread_condattr_t *)&conditionAttr
+     );
+    
+}
+
+
+void MyWaitOnConditionFunction(void)
+{
+    //Lock the mutex
+    int pthread_mutex_lock_rVal = INT_MAX;
+    pthread_mutex_lock_rVal =
+    pthread_mutex_lock((pthread_mutex_t *)&mutex);
+    
+    //if the predicate is alreday set,
+    // then the while loop is bypassed;
+    //otherwise ,
+    //the thread sleeps until the predicate is set
+    
+    while (ready_to_go == false)
+    {
+        int pthread_cond_wait_rVal = INT_MAX;
+        pthread_cond_wait_rVal =
+        pthread_cond_wait
+        (
+         (pthread_cond_t *)&condition,
+         (pthread_mutex_t *)&mutex
+         );
+    }
+    
+    //Do work . (The mutex should stay locked)
+    
+    //Reset the predicate and release the mutex
+    ready_to_go = false;
+    
+    //unlock
+    int pthread_mutex_unlock_rVal = INT_MAX;
+    pthread_mutex_unlock_rVal =
+    pthread_mutex_unlock((pthread_mutex_t *)&mutex);
+}
+
+/*
+ The signaling thread is responsible both for setting the predicate and for sending the signal to the condition lock. "SignalThreadUsingCondition" shows the code for implementing this behavior. In this example, the condition is signaled inside of the mutex to prevent race conditions from occurring between the threads waiting on the condition.
+ */
+
+void SignalThreadUsingCondition (void)
+{
+    //At this point there shoudl be work
+    //for the thread to do
+    
+    //lock
+    //Lock the mutex
+    int pthread_mutex_lock_rVal = INT_MAX;
+    pthread_mutex_lock_rVal =
+    pthread_mutex_lock((pthread_mutex_t *)&mutex);
+
+    //set predicate 
+    ready_to_go = true;
+    
+    //Signal the other thread to begin work
+    int pthread_cond_signal_rVal = INT_MAX;
+    pthread_cond_signal_rVal =
+    pthread_cond_signal((pthread_cond_t *)&condition);
+    
+    
+    //unlock
+    int pthread_mutex_unlock_rVal = INT_MAX;
+    pthread_mutex_unlock_rVal =
+    pthread_mutex_unlock((pthread_mutex_t *)&mutex);
+    
+    return;
+}
+
+void callThreads(void)
+{
+    pthread_t firstThread = 0;
+    firstThread =
+    *LaunchAPosixThread("first.thread",(void *(*)(void *))&firstThreadMain_Routine);
+    
+    pthread_t secondThread = 0;
+    secondThread =
+    *LaunchAPosixThread("first.thread",(void *(*)(void *))&secondThreadMain_Routine);
+}
+
+void* firstThreadMain_Routine(void *data)
+{
+    return NULL;
+}
+
+void* secondThreadMain_Routine(void *data)
+{
+    return NULL;
+}
 
 @end

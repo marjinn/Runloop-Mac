@@ -53,7 +53,8 @@ int main(int argc, const char * argv[])
     [[NSThreadAndNSPort new] startTheThread:@"co.axis.of.evil" WithSelector:nil];
     */
     
-    demoSYNC();
+    //demoSYNC();
+    demoCondition();
     
     
      [[NSRunLoop currentRunLoop] run];

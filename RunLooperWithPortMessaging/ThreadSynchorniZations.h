@@ -10,4 +10,5 @@
 
 @interface ThreadSynchorniZations : NSObject
 void demoSYNC (void);
+void demoCondition(void);
 @end

@@ -17,10 +17,10 @@
 
 @implementation PosixThreadandCFPorts
 
-pthread_t* LaunchAPosixThread(void* threadName)
+pthread_t* LaunchAPosixThread(void* threadName,void*(*PosixThreadMain_Routine)(void *))
 {
 
-    /* called has to free memory*/
+    /* caller has to free memory*/
     pthread_t* threadID = NULL;
     threadID = (pthread_t*)malloc(sizeof(pthread_t));
     threadID = (pthread_t*)memset((void *)threadID, 0, sizeof(pthread_t));
